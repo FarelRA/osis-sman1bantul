@@ -1,0 +1,96 @@
+/* Registrations Module Styles - True Virtual Scroll */
+
+/* Virtual scroll viewport */
+.virtual-viewport {
+    position: relative;
+}
+
+.virtual-viewport::-webkit-scrollbar {
+    width: 8px;
+}
+
+.virtual-viewport::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.virtual-viewport::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.dark .virtual-viewport::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+/* Card positioning for virtual scroll */
+.registration-card {
+    position: absolute;
+    left: 0;
+    right: 0;
+    transition: opacity 0.15s ease;
+    will-change: transform;
+}
+
+.registration-card.new-card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Filter tile active state */
+.status-filter {
+    transition: all 0.2s ease;
+}
+
+.status-filter.active {
+    border-color: rgb(59, 130, 246) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Lazy image placeholder */
+.lazy-image {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.dark .lazy-image {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Loading spinner */
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Button hover */
+button:not(:disabled):active {
+    transform: scale(0.98);
+}
+
+/* Modal transitions */
+#addRegModal,
+#editRegModal,
+#viewRegModal,
+#deleteConfirmModal {
+    transition: opacity 0.2s ease;
+}
+
+/* Toast notification animation */
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}

@@ -1,0 +1,310 @@
+{
+    "forms": [
+        {
+            "id": "sintesa_2026_form",
+            "slug": "reg-sintesa-2026",
+            "title": "PENDAFTARAN SINTESA 2026",
+            "description": "SINTESA 2026 is coming! Silahkan isi data pendaftaran awal Anda.",
+            "steps": [
+                {
+                    "title": "Identitas Diri",
+                    "fields": [
+                        {
+                            "name": "full_name",
+                            "label": "Nama Lengkap",
+                            "type": "text",
+                            "required": true,
+                            "placeholder": "Contoh: Farel Reski Aditiya"
+                        },
+                        {
+                            "name": "school_origin",
+                            "label": "Sekolah",
+                            "type": "text",
+                            "required": true,
+                            "placeholder": "Contoh: SMP Negeri 1 Bantul"
+                        },
+                        {
+                            "name": "address",
+                            "label": "Alamat",
+                            "type": "textarea",
+                            "required": true,
+                            "placeholder": "Contoh: Jalan KH Wakhid Hasyim, Sumuran, Palbapang, Bantul, Daerah Istimewa Yogyakarta"
+                        }
+                    ]
+                },
+                {
+                    "title": "Kontak",
+                    "fields": [
+                        {
+                            "name": "whatsapp",
+                            "label": "WhatsApp",
+                            "type": "tel",
+                            "required": true,
+                            "placeholder": "Contoh: 6285754812596"
+                        },
+                        {
+                            "name": "email",
+                            "label": "Alamat Email",
+                            "placeholder": "Contoh: farel@gmail.com",
+                            "type": "email",
+                            "required": true
+                        },
+                        {
+                            "name": "special_needs",
+                            "label": "Siswa Berkebutuhan Khusus?",
+                            "type": "select",
+                            "required": true,
+                            "options": [
+                                "Tidak",
+                                "Ya"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Data Orang Tua\/Wali",
+                    "fields": [
+                        {
+                            "name": "parent_name",
+                            "label": "Nama Orang Tua\/Wali",
+                            "type": "text",
+                            "required": true,
+                            "placeholder": "Contoh: Naisa Adia Wirani"
+                        },
+                        {
+                            "name": "parent_whatsapp",
+                            "label": "WhatsApp Orang Tua\/Wali",
+                            "type": "tel",
+                            "required": true,
+                            "placeholder": "Contoh: 6285754812596"
+                        }
+                    ]
+                }
+            ],
+            "registration_settings": {
+                "enabled": true,
+                "document_verification": true,
+                "document_verification_title": "Verifikasi Identitas",
+                "ai_verification": true,
+                "payment_enabled": true,
+                "registration_fee": "40000",
+                "offline_payment_location": "Lapangan Utara, SMA Negeri 1 Bantul, Jalan KH Wakhid Hasyim, Sumuran, Palbapang, Bantul, Daerah Istimewa Yogyakarta",
+                "offline_payment_hours": "Jam: 09:00 - 14:00 Tanggal: 16 - 17 Januari 2026",
+                "completion_message": "Selamat! Pendaftaran SINTESA 2026 Anda telah terverifikasi.",
+                "whatsapp_group_link": "https:\/\/chat.whatsapp.com\/FSYWxQ9Lba75YW67UxCt8W",
+                "event_pdf_url": "https:\/\/osis.sman1bantul.sch.id\/public\/assets\/docs\/RUNDOWN%20SINTESA%202026.pdf",
+                "default_timeout": "300",
+                "bank_accounts": [
+                    {
+                        "bank_name": "Bank BNI",
+                        "account_number": "2009512541",
+                        "account_holder": "Azalia Hartami Ramadhani"
+                    },
+                    {
+                        "bank_name": "Bank BPD",
+                        "account_number": "021.262.000272",
+                        "account_holder": "Aulia Anindita Primastiti"
+                    },
+                    {
+                        "bank_name": "Dana",
+                        "account_number": "628886465682",
+                        "account_holder": "Arfan Agus Tianto"
+                    }
+                ],
+                "document_timeout": 3600,
+                "payment_timeout": 7200,
+                "assignment_settings": {
+                    "enabled": true,
+                    "classes": [
+                        {
+                            "name": "Truman",
+                            "max": 36
+                        },
+                        {
+                            "name": "Christof",
+                            "max": 36
+                        },
+                        {
+                            "name": "Meryl",
+                            "max": 36
+                        },
+                        {
+                            "name": "Marlon",
+                            "max": 36
+                        },
+                        {
+                            "name": "Sylvia",
+                            "max": 36
+                        },
+                        {
+                            "name": "Hannah",
+                            "max": 36
+                        },
+                        {
+                            "name": "Louis",
+                            "max": 36
+                        },
+                        {
+                            "name": "Lauren",
+                            "max": 36
+                        },
+                        {
+                            "name": "Seaheaven",
+                            "max": 36
+                        },
+                        {
+                            "name": "Fiji",
+                            "max": 36
+                        },
+                        {
+                            "name": "Vivant",
+                            "max": 36
+                        },
+                        {
+                            "name": "Kirk",
+                            "max": 36
+                        },
+                        {
+                            "name": "Omnicam",
+                            "max": 36
+                        },
+                        {
+                            "name": "Cue",
+                            "max": 36
+                        }
+                    ],
+                    "gates": [
+                        {
+                            "name": "Gate 1",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 2",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 3",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 4",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 5",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 6",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 7",
+                            "max": 63
+                        },
+                        {
+                            "name": "Gate 8",
+                            "max": 63
+                        }
+                    ],
+                    "special_needs_class": "Cue",
+                    "special_needs_gate": "Gate 1",
+                    "special_needs_field": "special_needs",
+                    "special_needs_value": "Ya"
+                },
+                "offline_payment_deadline": "2026-01-17T14:45"
+            },
+            "created_at": "2026-01-17 14:40:43",
+            "context_type": "event",
+            "context_id": "sintesa-2026",
+            "quota": "500"
+        }
+    ],
+    "settings": {
+        "ai_api_key": "",
+        "ai_api_url": "https:\/\/openrouter.ai\/api\/v1",
+        "ai_model": "google\/gemini-3-flash-preview",
+        "stations": [
+            {
+                "emoji": "🚪",
+                "label": "Gerbang Masuk"
+            },
+            {
+                "emoji": "💰",
+                "label": "Pembayaran"
+            },
+            {
+                "emoji": "🪪",
+                "label": "Registrasi"
+            },
+            {
+                "emoji": "🍔",
+                "label": "Merch Booth"
+            },
+            {
+                "emoji": "🪗",
+                "label": "Lapangan Selatan"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Truman"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Christof"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Meryl"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Marlon"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Sylvia"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Hannah"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Louis"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Lauren"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Seaheaven"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Fiji"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Vivant"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Kirk"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Omnicam"
+            },
+            {
+                "emoji": "🏛️",
+                "label": "️Kelas Cue"
+            },
+            {
+                "emoji": "📤",
+                "label": "Gerbang Keluar"
+            }
+        ]
+    }
+}

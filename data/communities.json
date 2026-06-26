@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "name": "Komunitas Pecinta Alam",
+        "slug": "pecinta-alam",
+        "description": "Komunitas yang fokus pada kegiatan alam, hiking, dan pelestarian lingkungan",
+        "image": "communities\/sachristh.jpg",
+        "members": 45,
+        "instagram": "kpa_sman1bantul"
+    },
+    {
+        "id": 2,
+        "name": "Komunitas Fotografi",
+        "slug": "fotografi",
+        "description": "Wadah bagi siswa yang tertarik dengan dunia fotografi dan videografi",
+        "image": "communities\/sds.jpg",
+        "members": 32,
+        "instagram": "fotografi_sman1bantul"
+    },
+    {
+        "id": 3,
+        "name": "Komunitas Literasi",
+        "slug": "literasi",
+        "description": "Komunitas pecinta buku dan kegiatan literasi untuk meningkatkan minat baca",
+        "image": "communities\/sijimban.jpg",
+        "members": 28,
+        "instagram": "literasi_sman1bantul"
+    }
+]

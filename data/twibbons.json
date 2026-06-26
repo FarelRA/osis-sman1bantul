@@ -1,0 +1,67 @@
+[
+    {
+        "id": "mpls-62",
+        "name": "MPLS 62",
+        "caption": {
+            "template": "",
+            "fields": []
+        }
+    },
+    {
+        "id": "mpls-61",
+        "name": "MPLS 61",
+        "caption": {
+            "template": "",
+            "fields": []
+        }
+    },
+    {
+        "id": "sabaday-62",
+        "name": "Saba Day 62",
+        "caption": {
+            "template": "",
+            "fields": []
+        }
+    },
+    {
+        "id": "sabaday-61",
+        "name": "Saba Day 61",
+        "caption": {
+            "template": "",
+            "fields": []
+        }
+    },
+    {
+        "id": "sintesa-2026",
+        "name": "SINTESA 2026",
+        "caption": {
+            "template": "𝐒𝐈𝐍𝐓𝐄𝐒𝐀 𝟐𝟎𝟐𝟔\r\n📺 𝗦𝗶𝗻𝗮𝘂 𝗧𝗲𝘀 𝗕𝗮𝗿𝗲𝗻𝗴 𝗦𝗮𝗯𝗮 📺\r\n\r\n🎬 “𝘓𝘪𝘧𝘦 𝘪𝘴 𝘧𝘶𝘭𝘭 𝘰𝘧 𝘤𝘩𝘰𝘪𝘤𝘦𝘴 𝘢𝘯𝘥 𝘦𝘹𝘱𝘦𝘤𝘵𝘢𝘵𝘪𝘰𝘯. 𝘉𝘶𝘵 𝘵𝘩𝘦 𝘧𝘶𝘵𝘶𝘳𝘦 𝘪𝘴𝘯'𝘵 𝘢𝘣𝘰𝘶𝘵 𝘧𝘰𝘭𝘭𝘰𝘸𝘪𝘯𝘨 𝘴𝘰𝘮𝘦𝘰𝘯𝘦 𝘦𝘭𝘴𝘦' 𝘤𝘳𝘪𝘱𝘵. 𝘐𝘵'𝘴 𝘢𝘣𝘰𝘶𝘵 𝘩𝘢𝘷𝘪𝘯𝘨 𝘵𝘩𝘦 𝘰𝘶𝘳𝘢𝘨𝘦 𝘺𝘰 𝘸𝘳𝘪𝘵𝘦 𝘺𝘰𝘶𝘳 𝘰𝘸𝘯 𝘦𝘯𝘥𝘪𝘯𝘨”\r\n\r\nHai! Aku {{nama}} dari {{asal_smp}}.\r\nSiap melangkah keluar dari zona nyaman dan menentukan akhir ceritaku di SINTESA 2026 📀\r\n\r\nI’m locking in to measure my limits and prepare for the real challenge ahead ☎️⭐️\r\n\r\n𝑻𝒉𝒊𝒔 𝒊𝒔 𝒎𝒚 𝒋𝒐𝒖𝒓𝒏𝒆𝒚.\r\n𝑻𝒉𝒊𝒔 𝒊𝒔 𝒎𝒚 𝒔𝒕𝒐𝒓𝒚.\r\n\r\nHow’s it going to end? 🎟️🚪\r\n\r\n#SINTESA2026\r\n#SinauTesBarengSaba\r\n#sabaevent\r\n#eventsmajogja\r\n#tryoutASPD",
+            "fields": [
+                {
+                    "key": "nama",
+                    "label": "Nama",
+                    "placeholder": "Nama lengkap"
+                },
+                {
+                    "key": "asal_smp",
+                    "label": "Asal SMP",
+                    "placeholder": "SMP Negeri 1 Bantul"
+                }
+            ]
+        }
+    },
+    {
+        "id": "panitia-sintesa-2026",
+        "name": "PANITIA SINTESA 2026",
+        "caption": {
+            "template": "𝐒𝐈𝐍𝐓𝐄𝐒𝐀 𝟐𝟎𝟐𝟔 \r\n📺 𝙎𝙞𝙣𝙖𝙪 𝙏𝙚𝙨 𝘽𝙖𝙧𝙚𝙣𝙜 𝙎𝙖𝙗𝙖 📺\r\n\r\n෴˚𖥧 Hi! Aku {{nama}}, one of the SINTESA 2026 committee 💿\r\n\r\n🎬 𝑊𝑒’𝑟𝑒 ℎ𝑒𝑟𝑒 𝑡𝑜 𝑠𝑢𝑝𝑝𝑜𝑟𝑡 𝑦𝑜𝑢𝑟 𝑗𝑜𝑢𝑟𝑛𝑒𝑦 𝑎𝑛𝑑 ℎ𝑒𝑙𝑝 𝑦𝑜𝑢 𝑝𝑟𝑒𝑝𝑎𝑟𝑒 𝑓𝑜𝑟 𝑤ℎ𝑎𝑡’𝑠 𝑛𝑒𝑥𝑡.\r\n𝐿𝑒𝑡’𝑠 𝑓𝑖𝑛𝑑 𝑜𝑢𝑡 𝑡𝑜𝑔𝑒𝑡ℎ𝑒𝑟 ℎ𝑜𝑤 𝑡ℎ𝑖𝑠 𝑠𝑡𝑜𝑟𝑦 𝑒𝑛𝑑𝑠!\r\n\r\nHow's it going to ends? 🎥\r\nSee you soon! \r\n\r\n#SINTESA2026\r\n#SinauTesBarengSaba\r\n#sabaevent",
+            "fields": [
+                {
+                    "key": "nama",
+                    "label": "Nama Panitia",
+                    "placeholder": ""
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,95 @@
+{
+  "1": {
+    "title": "Ketakwaan Terhadap Tuhan Yang Maha Esa",
+    "team_photo": "sekbid/sekbid_1/sekbid_1_team.jpg",
+    "members": [
+      {"name": "Nafisa Ainur Rohmah", "position": "Koordinator", "photo": "sekbid/sekbid_1/koordinator_1.jpg"},
+      {"name": "Ridho Akmal Ikmawan", "position": "Sie Agama Islam", "photo": "sekbid/sekbid_1/agama-islam.jpg"},
+      {"name": "Narrien Melody Bulan Benning", "position": "Sie Agama Kristen", "photo": "sekbid/sekbid_1/agama-kristen.jpg"},
+      {"name": "Maria Vena Penta Maratyas", "position": "Sie Agama Katholik", "photo": "sekbid/sekbid_1/agama-katholik.jpg"}
+    ]
+  },
+  "2": {
+    "title": "Kehidupan Berbangsa dan Bernegara",
+    "team_photo": "sekbid/sekbid_2/sekbid_2_team.jpg",
+    "members": [
+      {"name": "Rainnisha Marwa", "position": "Koordinator", "photo": "sekbid/sekbid_2/koordinator_2.jpg"},
+      {"name": "Bunga Cinta Larasati", "position": "Sie Upacara", "photo": "sekbid/sekbid_2/upacara.jpg"},
+      {"name": "Benedicta Gracia Adiaswara", "position": "Sie Bangun Lingkungan", "photo": "sekbid/sekbid_2/bangun-lingkungan.jpg"}
+    ]
+  },
+  "3": {
+    "title": "Pendidikan dan Pendahuluan Bela Negara",
+    "team_photo": "sekbid/sekbid_3/sekbid_3_team.jpg",
+    "members": [
+      {"name": "Luthfi Aditya Bripda Pratama", "position": "Koordinator", "photo": "sekbid/sekbid_3/koordinator_3.jpg"},
+      {"name": "David Ikhwan Ma'rufi", "position": "Sie PBB", "photo": "sekbid/sekbid_3/pbb.jpg"},
+      {"name": "Ceicilia Tiara Nababan", "position": "Sie Pramuka", "photo": "sekbid/sekbid_3/pramuka.jpg"}
+    ]
+  },
+  "4": {
+    "title": "Pembentukan Kepribadian dan Budi Pekerti",
+    "team_photo": "sekbid/sekbid_4/sekbid_4_team.jpg",
+    "members": [
+      {"name": "Anwen Wafa Anabella J.", "position": "Koordinator", "photo": "sekbid/sekbid_4/koordinator_4.jpg"},
+      {"name": "Dhea Gracesily Pasaribu", "position": "Sie Keputrian", "photo": "sekbid/sekbid_4/keputrian.jpg"}
+    ]
+  },
+  "5": {
+    "title": "Berorganisasi, Pendidikan, Politik, dan Kepemimpinan",
+    "team_photo": "sekbid/sekbid_5/sekbid_5_team.jpg",
+    "members": [
+      {"name": "Muhammad Satryo Herlino", "position": "Koordinator", "photo": "sekbid/sekbid_5/koordinator_5.jpg"},
+      {"name": "Alzam Nuur A", "position": "Sie PKHS", "photo": "sekbid/sekbid_5/pkhs.jpg"},
+      {"name": "Akbar Surya Pratama", "position": "Sie KIR", "photo": "sekbid/sekbid_5/kir.jpg"},
+      {"name": "Ferinda Laksa Nabila", "position": "Sie Humas Extern", "photo": "sekbid/sekbid_5/humas-extern.jpg"},
+      {"name": "Laila Khoirunnisa", "position": "Sie Humas Intern", "photo": "sekbid/sekbid_5/humas-intern.jpg"}
+    ]
+  },
+  "6": {
+    "title": "Peningkatan Keterampilan dan Kewirausahaan",
+    "team_photo": "sekbid/sekbid_6/sekbid_6_team.jpg",
+    "members": [
+      {"name": "Akmal Nur Faiz", "position": "Koordinator", "photo": "sekbid/sekbid_6/koordinator_6.jpg"},
+      {"name": "Rienard Devon A", "position": "Sie Koperasi", "photo": "sekbid/sekbid_6/koperasi.jpg"}
+    ]
+  },
+  "7": {
+    "title": "Peningkatan Kesehatan Jasmani dan Daya Kreasi",
+    "team_photo": "sekbid/sekbid_7/sekbid_7_team.jpg",
+    "members": [
+      {"name": "Muti'ah Nurul 'Izzati", "position": "Koordinator", "photo": "sekbid/sekbid_7/koordinator_7.jpg"},
+      {"name": "Abdilla Alya Wardani", "position": "Sie PMR", "photo": "sekbid/sekbid_7/pmr.jpg"},
+      {"name": "Nabil Falih Agzabu Jati", "position": "Sie Olahraga", "photo": "sekbid/sekbid_7/olahraga.jpg"}
+    ]
+  },
+  "8": {
+    "title": "Presepsi, Apresiasi, dan Kreasi Seni",
+    "team_photo": "sekbid/sekbid_8/sekbid_8_team.jpg",
+    "members": [
+      {"name": "Angelica Alda Aurelia", "position": "Koordinator", "photo": "sekbid/sekbid_8/koordinator_8.jpg"},
+      {"name": "Naura Warda Rustantia Arifa", "position": "Sie Musik dan Padus", "photo": "sekbid/sekbid_8/musik-dan-padus.jpg"},
+      {"name": "Raisya Cahyarini Mumtazah", "position": "Sie Drama dan Tari", "photo": "sekbid/sekbid_8/drama-dan-tari.jpg"}
+    ]
+  },
+  "9": {
+    "title": "Peningkatan Teknologi Informasi dan Komunikasi",
+    "team_photo": "sekbid/sekbid_9/sekbid_9_team.jpg",
+    "members": [
+      {"name": "Karima Arumdita Las Sunarya", "position": "Koordinator", "photo": "sekbid/sekbid_9/koordinator_9.jpg"},
+      {"name": "Satria Saputra", "position": "Sie Desain", "photo": "sekbid/sekbid_9/desain.jpg"},
+      {"name": "Dimas Bintang Ramadhan", "position": "Sie Multimedia", "photo": "sekbid/sekbid_9/multimedia.jpg"},
+      {"name": "Alexander Dharma Surya Sadhana", "position": "Sie Website", "photo": "sekbid/sekbid_9/website.jpg"}
+    ]
+  },
+  "10": {
+    "title": "Peningkatan Bahasa Inggris",
+    "team_photo": "sekbid/sekbid_10/sekbid_10_team.jpg",
+    "members": [
+      {"name": "Rameyzalauna Kosse", "position": "Koordinator", "photo": "sekbid/sekbid_10/koordinator_10.jpg"},
+      {"name": "Muhammad Gilang Ramadhan", "position": "Sie Debat", "photo": "sekbid/sekbid_10/debat.jpg"},
+      {"name": "Ahnaf Faiz Paramudya", "position": "Sie Buletin", "photo": "sekbid/sekbid_10/buletin.jpg"},
+      {"name": "Saktiawan Danangjaya", "position": "Sie Mading", "photo": "sekbid/sekbid_10/mading.jpg"}
+    ]
+  }
+}

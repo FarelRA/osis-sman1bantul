@@ -1,0 +1,89 @@
+{
+  "1": {
+    "koordinator": [
+      "Mengatur dan membimbing anggota sekbid 1",
+      "Mengarahkan anggotanya dalam menjadi seorang anggota sekbid 1",
+      "Bertanggung jawab dan mengawasi pelaksanaan program-program yang telah disusun"
+    ],
+    "sie_islam": [
+      "Mengoordinasi pelaksanaan ibadah agama Islam",
+      "Menjadi penghubung sekbid 1 agama Islam dengan organisasi Rohis Al-Fattah",
+      "Mengoordinasi peringatan hari hari besar agama Islam"
+    ],
+    "sie_kristen": [
+      "Menjadi penghubung sekbid 1 agama Kristen dengan Sachrist",
+      "Mengkoordinasi jalannya pendalaman Alkitab setiap minggu"
+    ],
+    "sie_katholik": [
+      "Menjadi penghubung sekbid 1 agama Katolik dengan Sachrist",
+      "Mengkoordinasi jalannya pendalaman Alkitab setiap minggu",
+      "Membuat jarkom Misa Pelajar setiap bulan"
+    ]
+  },
+  "2": {
+    "koordinator": [
+      "Mengkoordinasi Sie Upacara dan Bangun Lingkungan",
+      "Menjadi penghubung antara Sie yang dinaungi dengan Sekbid lain maupun eksternal",
+      "Menjadi penghubung antara Organisasi Siswa Intra Sekolah dengan Saba Berwawasan Lingkungan",
+      "Bertanggung jawab menjalankan tugas Sekbid"
+    ]
+  },
+  "3": {
+    "koordinator": [
+      "Mengkoordinasikan setiap sie yang ada dalam Sekbid 3 (Sie Pramuka dan Sie PBB)",
+      "Bertanggung jawab atas kinerja Sekbid 3 dengan mengawasi progres tiap sie"
+    ]
+  },
+  "4": {
+    "koordinator": [
+      "Mengkoordinasi Sie Keputrian",
+      "Bertanggung jawab atas kinerja Sekbid 4"
+    ]
+  },
+  "5": {
+    "koordinator": [
+      "Mengkoordinasi setiap seksi yang ada dalam Sekbid 5",
+      "Bertanggung jawab atas seksi yang ada dalam bentuk mengawasi progres tiap seksi"
+    ]
+  },
+  "6": {
+    "koordinator": [
+      "Mengkoordinasi Sie Koperasi",
+      "Bertanggung jawab atas kinerja Sekbid 6"
+    ]
+  },
+  "7": {
+    "koordinator": [
+      "Mengkoordinasi Sie PMR dan Sie Olahraga",
+      "Menjadi penghubung antara Organisasi Siswa Intra Sekolah dengan Sabayouth Health Care",
+      "Bertanggungjawab menjalankan tugas dan proker sekbid"
+    ]
+  },
+  "8": {
+    "koordinator": [
+      "Mengkoordinasi, Mengawasi, dan membantu Sie Musik dan Padus serta Sie Drama dan tari dalam menjalankan program kerja",
+      "Menyampaikan laporan pertanggung jawaban pelaksanaan program kerja sekbid 8 pada akhir masa bakti"
+    ]
+  },
+  "9": {
+    "koordinator": [
+      "Mengkoordinasikan setiap sie yang ada dalam Sekbid 9 (Sie Desain, Sie Multimedia, dan Sie Website)",
+      "Bertanggung jawab atas kinerja Sekbid 9 dengan mengawasi progres tiap sie"
+    ],
+    "sie_desain": [
+      "Membuat desain untuk keperluan OSIS",
+      "Menjadi panitia bagian dekorasi dan dokumentasi suatu acara",
+      "Pembuatan desain buku sekbid dan sertifikat OSIS",
+      "Pembuatan poster hari-hari besar"
+    ],
+    "sie_website": [
+      "Membuat dan merawat website resmi OSIS SMAN 1 Bantul"
+    ]
+  },
+  "10": {
+    "koordinator": [
+      "Mengkoordinasikan setiap sie yang ada dalam Sekbid 10 (Sie Debat, Sie Buletin, dan Sie Mading)",
+      "Bertanggung jawab atas kinerja Sekbid 10 dengan mengawasi progres tiap sie"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "mission": "To empower students through leadership opportunities, foster a vibrant school community, and create meaningful experiences that contribute to personal growth and academic excellence.",
+  "vision": "To be a student organization that inspires excellence, promotes inclusivity, and serves as a bridge between students and school administration for a better educational experience.",
+  "activities": [
+    {
+      "title": "Organize Events",
+      "description": "Plan and execute school-wide events, competitions, and celebrations"
+    },
+    {
+      "title": "Student Advocacy",
+      "description": "Represent student voices and interests to school administration"
+    },
+    {
+      "title": "Leadership Development",
+      "description": "Provide opportunities for students to develop leadership skills"
+    },
+    {
+      "title": "Community Building",
+      "description": "Foster a sense of belonging and unity among students"
+    }
+  ]
+}
