@@ -1,0 +1,48 @@
+# Security: Block direct access to sensitive directories
+RedirectMatch 403 ^/data/.*$
+RedirectMatch 403 ^/src/.*$
+RedirectMatch 403 ^/sessions/.*$
+RedirectMatch 403 ^/views/.*$
+RedirectMatch 403 ^/router\.php$
+RedirectMatch 403 ^/\.git/.*$
+RedirectMatch 403 ^/\.env.*$
+RedirectMatch 403 ^/vendor/.*$
+RedirectMatch 403 ^/node_modules/.*$
+RedirectMatch 403 ^/package\.json$
+RedirectMatch 403 ^/package-lock\.json$
+RedirectMatch 403 ^/tailwind\.config\.js$
+RedirectMatch 403 ^/composer\.(json|lock)$
+
+# Block direct access to .json files outside /public/
+RewriteCond %{REQUEST_URI} \.json$
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule .* - [F,L]
+
+# Block access to .md, .env, .git files
+RewriteRule \.(md|env|git|log|lock)$ - [F,L]
+
+# Block access to PHP files in data, src, views, sessions
+RewriteRule ^(data|src|views|sessions)/.*\.php$ - [F,L]
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# Protect .htaccess itself
+<Files ~ "^\.ht">
+    Require all denied
+</Files>
+
+# Deny access to PHP files in sensitive directories
+<FilesMatch "\.(inc|sql|yml)$">
+    Require all denied
+</FilesMatch>

@@ -15,6 +15,35 @@ if ($selected_id) {
 ob_start();
 ?>
 
+<script>
+(function() {
+    var ua = navigator.userAgent;
+    var isAndroid = /android/i.test(ua);
+
+    if (/Instagram|FBAV|FBAN|Messenger|Twitter|TikTok|LinkedInApp|Pinterest|Snapchat/i.test(ua)) {
+        if (isAndroid) {
+            window.location.href = 'intent://' + window.location.href.replace(/^https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
+        }
+
+        document.documentElement.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function() {
+            document.documentElement.style.display = '';
+            var div = document.createElement('div');
+            div.style.cssText = 'position:fixed;inset:0;z-index:9999;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;font-family:sans-serif;';
+            div.innerHTML =
+                '<h1 style="font-size:1.5rem;margin-bottom:1rem;color:#1a1a1a;">Open in ' + (isAndroid ? 'Chrome' : 'Safari') + '</h1>' +
+                '<p style="font-size:1rem;margin-bottom:0.5rem;color:#666;max-width:28rem;">Your browser doesn\'t support saving images.</p>' +
+                '<p style="font-size:1rem;margin-bottom:2rem;color:#666;max-width:28rem;line-height:1.5;">' + (isAndroid
+                    ? 'Tap <strong>Open</strong> when prompted, or copy the URL below and open it manually in Chrome.'
+                    : 'Tap the share button <span style="font-size:1.3rem;">☝</span> in the address bar, then choose <strong>Open in Safari</strong>, or copy the URL below and open it manually.') +
+                '</p>' +
+                '<button onclick="navigator.clipboard.writeText(location.href);this.textContent=\'Copied!\'" style="padding:0.75rem 2rem;background:#2C3E7C;color:white;border:none;border-radius:12px;font-size:1rem;cursor:pointer;">Copy URL</button>';
+            document.body.appendChild(div);
+        });
+    }
+})();
+</script>
+
 <section class="py-20 relative" x-data="twibbonGenerator()">
     <!-- Loading Overlay -->
     <div x-show="loading" class="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -78,7 +107,7 @@ ob_start();
                             <button @click="selectFrame('<?= $tw['id'] ?>')"
                                 :class="selectedFrame === '<?= $tw['id'] ?>' ? 'ring-4 ring-[#2C3E7C] dark:ring-blue-400 scale-105' : 'border-2 border-gray-200 dark:border-gray-700 hover:border-[#2C3E7C] dark:hover:border-blue-400'"
                                 class="card p-4 transition-all duration-300">
-                                <img src="<?= asset('assets/twibbon/' . $tw['id'] . '.png') ?>"
+                                <img src="<?= asset('assets/twibbon/' . $tw['id'] . '.webp') ?>"
                                     class="w-full aspect-square object-contain rounded-xl mb-3"
                                     alt="<?= $tw['name'] ?>">
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">

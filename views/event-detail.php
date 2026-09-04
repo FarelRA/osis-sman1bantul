@@ -9,7 +9,6 @@ ob_start();
         <div class="max-w-4xl mx-auto">
             <!-- Event Header -->
             <div class="mb-8">
-                <a href="/events" class="text-cyan-500 hover:text-cyan-600 mb-4 inline-block">&larr; Back to Events</a>
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
                     <?= htmlspecialchars($event['title']) ?>
                 </h1>
@@ -23,9 +22,10 @@ ob_start();
             </div>
 
             <!-- Event Image -->
-            <div class="mb-8 rounded-xl overflow-hidden">
-                <img src="<?= asset('assets/images/' . $event['image']) ?>" class="w-full h-96 object-cover"
-                    alt="<?= $event['title'] ?>">
+            <div class="mb-8 rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-800 aspect-video">
+                <img src="<?= asset('assets/images/' . $event['image']) ?>" class="w-full h-full object-cover"
+                    alt="<?= htmlspecialchars($event['title']) ?>"
+                    onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'">
             </div>
 
             <!-- Event Content -->

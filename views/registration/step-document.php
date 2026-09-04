@@ -314,14 +314,13 @@ ob_start();
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        // Try different quality levels
                         let quality = 0.8;
                         const tryCompress = () => {
                             canvas.toBlob(
                                 (blob) => {
                                     if (blob.size <= maxSize || quality <= 0.3) {
-                                        const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
-                                            type: 'image/jpeg',
+                                        const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), {
+                                            type: 'image/webp',
                                             lastModified: Date.now()
                                         });
                                         resolve(compressedFile);
@@ -330,7 +329,7 @@ ob_start();
                                         tryCompress();
                                     }
                                 },
-                                'image/jpeg',
+                                'image/webp',
                                 quality
                             );
                         };

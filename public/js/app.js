@@ -87,11 +87,12 @@ function twibbonGenerator() {
         async loadTwibbonSize() {
             const img = new Image();
             img.src = this.getFrameUrl();
-            await new Promise(resolve => {
+            await new Promise((resolve, reject) => {
                 img.onload = () => {
                     this.twibbonSize = img.width;
                     resolve();
                 };
+                img.onerror = reject;
             });
         },
         async handleFileUpload(event) {
@@ -143,7 +144,7 @@ function twibbonGenerator() {
         },
         getFrameUrl() {
             const basePath = window.location.origin;
-            return `${basePath}/public/assets/twibbon/${this.selectedFrame}.png`;
+            return `${basePath}/public/assets/twibbon/${this.selectedFrame}.webp`;
         },
         resetTransform() {
             if (this.cropper) {
@@ -152,25 +153,56 @@ function twibbonGenerator() {
         },
         async downloadTwibbon() {
             if (!this.cropper) return;
-            if (!this.twibbonSize) await this.loadTwibbonSize();
+            if (!this.twibbonSize) {
+                try {
+                    await this.loadTwibbonSize();
+                } catch {
+                    alert('Failed to load twibbon frame. Please refresh and try again.');
+                    return;
+                }
+            }
 
-            const canvas = this.cropper.getCroppedCanvas({
-                width: this.twibbonSize,
-                height: this.twibbonSize
-            });
+            this.loading = true;
 
-            const ctx = canvas.getContext('2d');
-            const frameImg = new Image();
-            
-            frameImg.onload = () => {
+            try {
+                const canvas = this.cropper.getCroppedCanvas({
+                    width: this.twibbonSize,
+                    height: this.twibbonSize
+                });
+
+                const ctx = canvas.getContext('2d');
+                const frameImg = new Image();
+                frameImg.src = this.getFrameUrl();
+
+                await new Promise((resolve, reject) => {
+                    frameImg.onload = resolve;
+                    frameImg.onerror = reject;
+                });
+
                 ctx.drawImage(frameImg, 0, 0, this.twibbonSize, this.twibbonSize);
-                
+
+                const blob = await new Promise((resolve, reject) => {
+                    canvas.toBlob(function(b) {
+                        if (b) resolve(b);
+                        else reject(new Error('Canvas toBlob returned null'));
+                    }, 'image/jpeg', 0.9);
+                });
+
+                const fileName = 'twibbon-osis-' + this.selectedFrame + '.jpg';
+                const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.download = 'twibbon-osis-' + this.selectedFrame + '.jpg';
-                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.download = fileName;
+                link.href = url;
+                document.body.appendChild(link);
                 link.click();
-            };
-            frameImg.src = this.getFrameUrl();
+                document.body.removeChild(link);
+                setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+            } catch (e) {
+                console.error('Download failed:', e);
+                alert('Failed to generate image. Please try again.');
+            } finally {
+                this.loading = false;
+            }
         },
         hasCaption() {
             const frame = this.frames.find(f => f.id === this.selectedFrame);

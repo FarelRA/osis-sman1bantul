@@ -30,10 +30,10 @@ ob_start();
                 <a href="/blog/<?= $blog['slug'] ?>"
                     class="card overflow-hidden group hover:shadow-2xl transition-all duration-300 cursor-pointer">
                     <div class="aspect-video overflow-hidden bg-gray-200 dark:bg-gray-800">
-                        <img src="<?= asset('assets/images/' . ($blog['image'] ?? 'placeholder.jpg')) ?>"
+                        <img src="<?= asset('assets/images/' . ($blog['image'] ?? 'placeholder.webp')) ?>"
                             alt="<?= htmlspecialchars($blog['title']) ?>"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'">
+                            onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">

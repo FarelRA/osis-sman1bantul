@@ -28,14 +28,19 @@ ob_start();
         <!-- Communities Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <?php
-            $categories = ['Hobbies', 'Lifestyle', 'Social'];
             $colors = [
-                'Hobbies' => 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300',
-                'Lifestyle' => 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300',
-                'Social' => 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                'Technology & Academics' => 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300',
+                'Arts & Culture' => 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300',
+                'Sports & Wellness' => 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300',
+                'Science & Research' => 'bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300',
+                'Social & Environment' => 'bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300',
+                'Media & Journalism' => 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300',
+                'Music & Performance' => 'bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300',
+                'Leadership & Advocacy' => 'bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300',
             ];
-            foreach ($communities as $index => $community):
-                $category = $categories[$index % 3];
+            foreach ($communities as $community):
+                $category = $community['category'] ?? 'General';
+                $color = $colors[$category] ?? 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
                 ?>
                 <a href="/community/<?= $community['slug'] ?>"
                     class="card overflow-hidden group hover:shadow-2xl transition-all duration-300 cursor-pointer">
@@ -43,7 +48,7 @@ ob_start();
                         <img src="<?= asset('assets/images/' . $community['image']) ?>"
                             alt="<?= htmlspecialchars($community['name']) ?>"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'">
+                            onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
@@ -53,8 +58,8 @@ ob_start();
                             <?= htmlspecialchars($community['description']) ?>
                         </p>
                         <div class="flex items-center justify-between text-sm">
-                            <span class="badge <?= $colors[$category] ?>"><?= $category ?></span>
-                            <span class="text-gray-600 dark:text-gray-400"><?= $community['members'] ?>+ members</span>
+                            <span class="badge <?= $color ?>"><?= $category ?></span>
+                            <span class="text-gray-600 dark:text-gray-400"><?= ($community['members'] ?? 0) ?>+ members</span>
                         </div>
                     </div>
                 </a>

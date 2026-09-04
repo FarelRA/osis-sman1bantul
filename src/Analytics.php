@@ -1,36 +1,32 @@
 <?php
 function trackVisit()
 {
-    $analytics_file = BASE_PATH . '/data/analytics.json';
+    $file = BASE_PATH . '/data/analytics.jsonl';
 
-    // Load existing data
-    $analytics = file_exists($analytics_file) ? json_decode(file_get_contents($analytics_file), true) : [];
-
-    // Get visitor info
     $visit = [
         'timestamp' => date('Y-m-d H:i:s'),
-        'page' => $_SERVER['REQUEST_URI'],
-        'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-        'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
-        'referrer' => $_SERVER['HTTP_REFERER'] ?? 'direct'
+        'page' => substr($_SERVER['REQUEST_URI'] ?? '/', 0, 500),
+        'method' => $_SERVER['REQUEST_METHOD'] ?? 'GET',
+        'ip' => filter_var($_SERVER['REMOTE_ADDR'] ?? 'unknown', FILTER_VALIDATE_IP) ?: 'unknown',
+        'user_agent' => substr(preg_replace('/[^\x20-\x7E]/', '', $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'), 0, 300),
+        'referrer' => substr(preg_replace('/[^\x20-\x7E]/', '', $_SERVER['HTTP_REFERER'] ?? 'direct'), 0, 500)
     ];
 
-    // Add to analytics
-    $analytics[] = $visit;
-
-    // Keep only last 10000 visits to prevent file from getting too large
-    if (count($analytics) > 10000) {
-        $analytics = array_slice($analytics, -10000);
-    }
-
-    // Save
-    file_put_contents($analytics_file, json_encode($analytics, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    file_put_contents($file, json_encode($visit, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
 }
 
 function getAnalytics()
 {
-    $analytics_file = BASE_PATH . '/data/analytics.json';
-    return file_exists($analytics_file) ? json_decode(file_get_contents($analytics_file), true) : [];
+    $file = BASE_PATH . '/data/analytics.jsonl';
+    if (!file_exists($file)) return [];
+
+    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $visits = [];
+    foreach ($lines as $line) {
+        $decoded = json_decode($line, true);
+        if (is_array($decoded)) $visits[] = $decoded;
+    }
+    return $visits;
 }
 
 function getAnalyticsStats($range = '7d')
