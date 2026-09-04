@@ -5,3 +5,5 @@ vendor/
 *.log
 public/assets/uploads/
 data/registrations/
+data/
+sessions/
