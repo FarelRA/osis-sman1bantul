@@ -8,6 +8,16 @@ function formManager() {
         document_verification: false,
         document_verification_title: 'Verify Your Identity',
         ai_verification: false,
+        ocr_mode: 'tesseract',
+        assignment_settings: {
+            enabled: false,
+            classes: [],
+            gates: [],
+            special_needs_class: '',
+            special_needs_gate: '',
+            special_needs_field: '',
+            special_needs_value: ''
+        },
         payment_enabled: false,
         registration_fee: 150000,
         bank_accounts: [],
@@ -23,6 +33,7 @@ function formManager() {
 
     return {
         isEditing: false,
+        settingsTab: 'basic',
         form: {
             id: null,
             original_id: null,

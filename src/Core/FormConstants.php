@@ -19,6 +19,7 @@ class FormConstants
     public const ALLOWED_MIME_TYPES = [
         'image/jpeg' => 'jpg',
         'image/png' => 'png',
+        'image/webp' => 'webp',
     ];
 
     // Registration statuses

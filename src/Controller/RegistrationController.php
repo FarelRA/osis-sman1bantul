@@ -571,10 +571,12 @@ class RegistrationController
         $regSettings = $form['registration_settings'] ?? [];
 
         if (!empty($this->settings['ai_api_key']) && !empty($regSettings['ai_verification'])) {
+            $extraParams = !empty($this->settings['ai_extra_params']) ? json_decode($this->settings['ai_extra_params'], true) : [];
             $gemini = new AIClient(
                 $this->settings['ai_api_key'],
                 $this->settings['ai_api_url'] ?? 'https://api.openai.com/v1',
-                $this->settings['ai_model'] ?? 'gpt-4o'
+                $this->settings['ai_model'] ?? 'gpt-4o',
+                $extraParams ?: []
             );
             $userData = $registration['data'] ?? [];
             $result = $gemini->verifyStudentId($filePath, $userData);
@@ -662,10 +664,12 @@ class RegistrationController
 
         // Run AI verification if configured
         if (!empty($this->settings['ai_api_key']) && !empty($regSettings['ai_verification'])) {
+            $extraParams = !empty($this->settings['ai_extra_params']) ? json_decode($this->settings['ai_extra_params'], true) : [];
             $gemini = new AIClient(
                 $this->settings['ai_api_key'],
                 $this->settings['ai_api_url'] ?? 'https://api.openai.com/v1',
-                $this->settings['ai_model'] ?? 'gpt-4o'
+                $this->settings['ai_model'] ?? 'gpt-4o',
+                $extraParams ?: []
             );
 
             $paymentInfo = [
@@ -767,6 +771,11 @@ class RegistrationController
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->jsonResponse(['success' => false]);
+            return;
+        }
+
+        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            $this->jsonResponse(['success' => false, 'message' => 'Invalid token']);
             return;
         }
 

@@ -23,7 +23,7 @@ $buttonLink = $buttonLink ?? '/';
 // Extract additional context if available
 $formTitle = $form['title'] ?? null;
 $quota = $quota ?? ($form['quota'] ?? null);
-$contactEmail = 'osis@sman1bantul.sch.id';
+
 ?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
@@ -32,23 +32,11 @@ $contactEmail = 'osis@sman1bantul.sch.id';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title) ?> - OSIS SMAN 1 Bantul</title>
-    <link rel="icon" type="image/png" href="/public/assets/images/osis.png">
+    <link rel="icon" type="image/png" href="/public/assets/images/osis.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <style>
         /* Animated gradient background */
         .bg-animated {
@@ -307,10 +295,10 @@ $contactEmail = 'osis@sman1bantul.sch.id';
             <!-- Help Text -->
             <div class="mt-6 text-center animate-fade-in-up animation-delay-400">
                 <p class="text-slate-400 text-sm">
-                    Need assistance? Email us at
-                    <a href="mailto:<?= htmlspecialchars($contactEmail) ?>"
-                        class="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors">
-                        <?= htmlspecialchars($contactEmail) ?>
+                    Need assistance? DM us on
+                    <a href="https://instagram.com/sabaevent" target="_blank"
+                        class="text-pink-400 hover:text-pink-300 underline underline-offset-2 transition-colors">
+                        Instagram @sabaevent
                     </a>
                 </p>
             </div>
@@ -318,7 +306,7 @@ $contactEmail = 'osis@sman1bantul.sch.id';
             <!-- Logo -->
             <div class="mt-8 flex justify-center animate-fade-in-up animation-delay-400">
                 <a href="/" class="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
-                    <img src="/public/assets/images/osis.png" alt="OSIS" class="h-8 w-8">
+                    <img src="/public/assets/images/osis.webp" alt="OSIS" class="h-8 w-8">
                     <span class="text-white/80 text-sm font-medium">OSIS SMAN 1 Bantul</span>
                 </a>
             </div>
@@ -326,8 +314,8 @@ $contactEmail = 'osis@sman1bantul.sch.id';
     </div>
 
     <script>
-        // Auto dark mode
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // Use device theme, default to dark
+        if (!window.matchMedia || window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
     </script>

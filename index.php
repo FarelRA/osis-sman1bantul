@@ -200,7 +200,14 @@ $router->get('/restore', function () {
 // --- Internal Apps Generic Router ---
 
 $router->get('/internal/{app_slug}', function ($app_slug) {
-    $indexPath = BASE_PATH . '/views/internal/' . $app_slug . '/index.php';
+    $slug = basename($app_slug);
+    $slug = preg_replace('/[^\w\-]/', '', $slug);
+    if ($slug === '' || $slug !== $app_slug) {
+        http_response_code(404);
+        require BASE_PATH . '/views/404.php';
+        return;
+    }
+    $indexPath = BASE_PATH . '/views/internal/' . $slug . '/index.php';
     if (file_exists($indexPath)) {
         require $indexPath;
     } else {
@@ -210,7 +217,14 @@ $router->get('/internal/{app_slug}', function ($app_slug) {
 });
 
 $router->post('/internal/{app_slug}', function ($app_slug) {
-    $indexPath = BASE_PATH . '/views/internal/' . $app_slug . '/index.php';
+    $slug = basename($app_slug);
+    $slug = preg_replace('/[^\w\-]/', '', $slug);
+    if ($slug === '' || $slug !== $app_slug) {
+        http_response_code(404);
+        require BASE_PATH . '/views/404.php';
+        return;
+    }
+    $indexPath = BASE_PATH . '/views/internal/' . $slug . '/index.php';
     if (file_exists($indexPath)) {
         require $indexPath;
     } else {

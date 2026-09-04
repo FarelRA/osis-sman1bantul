@@ -9,7 +9,6 @@ ob_start();
         <div class="max-w-4xl mx-auto">
             <!-- Blog Header -->
             <div class="mb-8">
-                <a href="/blogs" class="text-cyan-500 hover:text-cyan-600 mb-4 inline-block">&larr; Back to Blogs</a>
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
                     <?= htmlspecialchars($blog['title']) ?>
                 </h1>
@@ -23,9 +22,10 @@ ob_start();
 
             <!-- Blog Image -->
             <?php if (!empty($blog['image'])): ?>
-                <div class="mb-8 rounded-xl overflow-hidden">
-                    <img src="<?= asset('assets/images/' . $blog['image']) ?>" class="w-full h-96 object-cover"
-                        alt="<?= $blog['title'] ?>">
+                <div class="mb-8 rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-800 aspect-video">
+                    <img src="<?= asset('assets/images/' . $blog['image']) ?>" class="w-full h-full object-cover"
+                        alt="<?= htmlspecialchars($blog['title']) ?>"
+                        onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'">
                 </div>
             <?php endif; ?>
 

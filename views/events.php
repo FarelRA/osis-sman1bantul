@@ -1,6 +1,7 @@
 <?php
 $title = 'Events - OSIS SMAN 1 Bantul';
 $events = json_decode(file_get_contents(BASE_PATH . '/data/events.json'), true);
+usort($events, fn($a, $b) => strtotime($b['date']) - strtotime($a['date']));
 ob_start();
 ?>
 
@@ -32,7 +33,8 @@ ob_start();
                     <div class="aspect-video overflow-hidden bg-gray-200 dark:bg-gray-800">
                         <img src="<?= asset('assets/images/' . $event['image']) ?>"
                             alt="<?= htmlspecialchars($event['title']) ?>"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">

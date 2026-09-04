@@ -10,15 +10,18 @@ class AIClient
     private string $apiKey;
     private string $apiUrl;
     private string $model;
+    private array $extraParams;
 
     public function __construct(
         string $apiKey,
         string $apiUrl = 'https://api.openai.com/v1',
-        string $model = 'gpt-4o'
+        string $model = 'gpt-4o',
+        array $extraParams = []
     ) {
         $this->apiKey = $apiKey;
         $this->apiUrl = rtrim($apiUrl, '/');
         $this->model = $model;
+        $this->extraParams = $extraParams;
     }
 
     /**
@@ -206,9 +209,32 @@ PROMPT;
     }
 
     /**
+     * Transcribe all visible text from an image
+     * Returns raw text — regex parsing happens on the caller side
+     */
+    public function extractOcrText(string $imagePath): array
+    {
+        $prompt = 'Transcribe all visible text from this image exactly as you see it. Return every letter, number, and label. Do not summarize or interpret — just output the raw text.';
+
+        $schema = [
+            'type' => 'object',
+            'properties' => [
+                'transcribed_text' => [
+                    'type' => 'string',
+                    'description' => 'All text visible in the image, transcribed exactly as seen'
+                ]
+            ],
+            'required' => ['transcribed_text'],
+            'additionalProperties' => false
+        ];
+
+        return $this->analyzeImage($imagePath, $prompt, $schema, 'ocr_transcription');
+    }
+
+    /**
      * Send image to OpenAI-compatible API for analysis with Structured Outputs
      */
-    private function analyzeImage(string $imagePath, string $prompt, array $schema, string $schemaName): array
+    protected function analyzeImage(string $imagePath, string $prompt, array $schema, string $schemaName): array
     {
         if (!file_exists($imagePath)) {
             return [
@@ -255,35 +281,59 @@ PROMPT;
             'temperature' => 0.1
         ];
 
+        // Merge extra params (allows provider-specific overrides like reasoning, thinking_config, etc.)
+        if (!empty($this->extraParams)) {
+            $payload = array_merge($payload, $this->extraParams);
+        }
+
         // Make API request
         $url = $this->apiUrl . '/chat/completions';
 
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'Authorization: Bearer ' . $this->apiKey
-            ],
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 60
-        ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $error = curl_error($ch);
-        curl_close($ch);
-
-        if ($error) {
+        if (!str_starts_with($url, 'https://')) {
             return [
                 'success' => false,
-                'error' => 'API request failed: ' . $error,
+                'error' => 'API URL must use HTTPS',
                 'valid' => false
             ];
         }
 
-        if ($httpCode !== 200) {
+        $httpHeaders = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiKey
+        ];
+
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => implode("\r\n", $httpHeaders),
+                'content' => json_encode($payload),
+                'timeout' => 60,
+                'ignore_errors' => true
+            ],
+            'ssl' => [
+                'verify_peer' => true,
+                'verify_peer_name' => true,
+            ]
+        ]);
+
+        $response = @file_get_contents($url, false, $context);
+
+        if ($response === false) {
+            $error = error_get_last();
+            return [
+                'success' => false,
+                'error' => 'API request failed: ' . ($error['message'] ?? 'Unknown error'),
+                'valid' => false
+            ];
+        }
+
+        $httpCode = 0;
+        if (isset($http_response_header)) {
+            preg_match('/HTTP\/\d\.\d\s+(\d+)/', $http_response_header[0], $m);
+            $httpCode = (int)($m[1] ?? 0);
+        }
+
+        if ($httpCode !== 0 && $httpCode !== 200) {
             $errorBody = json_decode($response, true);
             $errorMessage = $errorBody['error']['message'] ?? 'Unknown error';
             return [

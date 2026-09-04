@@ -32,7 +32,8 @@ class RegistrationRepository
      */
     private function getFormPath(string $formId): string
     {
-        $path = $this->basePath . '/' . $formId;
+        $safeId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $formId);
+        $path = $this->basePath . '/' . $safeId;
         if (!is_dir($path)) {
             mkdir($path, 0755, true);
         }
@@ -44,7 +45,8 @@ class RegistrationRepository
      */
     private function getFilePath(string $formId, string $regId): string
     {
-        return $this->getFormPath($formId) . '/' . $regId . '.json';
+        $safeId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $regId);
+        return $this->getFormPath($formId) . '/' . $safeId . '.json';
     }
 
     /**
@@ -276,8 +278,8 @@ class RegistrationRepository
         }
 
         // Validate file size (2MB limit to match PHP default)
-        if ($_FILES[$fieldName]['size'] > 2 * 1024 * 1024) {
-            return ['success' => false, 'path' => null, 'error' => 'File is too large. Maximum size is 2MB.'];
+        if ($_FILES[$fieldName]['size'] > 5 * 1024 * 1024) {
+            return ['success' => false, 'path' => null, 'error' => 'File is too large. Maximum size is 5MB.'];
         }
 
         // Validate MIME type (more secure than extension check)
@@ -295,11 +297,12 @@ class RegistrationRepository
         $allowedMimes = [
             'image/jpeg' => 'jpg',
             'image/png' => 'png',
+            'image/webp' => 'webp',
             'application/pdf' => 'pdf'
         ];
 
         if (!isset($allowedMimes[$mimeType])) {
-            return ['success' => false, 'path' => null, 'error' => 'Invalid file type. Please upload JPG, PNG, or PDF.'];
+            return ['success' => false, 'path' => null, 'error' => 'Invalid file type. Please upload JPG, PNG, WebP, or PDF.'];
         }
 
         $uploadPath = $this->getUploadPath($formId, $regId);

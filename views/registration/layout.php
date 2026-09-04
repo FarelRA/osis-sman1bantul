@@ -35,20 +35,14 @@ $stepLabels = ['Info', 'Identity', 'Contact', 'Document', 'Payment', 'Complete']
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
+        // Use device theme, default to dark
+        if (!window.matchMedia || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
         }
     </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         /* Premium Design System */
         :root {
@@ -499,9 +493,6 @@ $stepLabels = ['Info', 'Identity', 'Contact', 'Document', 'Payment', 'Complete']
                 },
 
                 setupDarkMode() {
-                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                        document.documentElement.classList.add('dark');
-                    }
                     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
                         document.documentElement.classList.toggle('dark', e.matches);
                     });

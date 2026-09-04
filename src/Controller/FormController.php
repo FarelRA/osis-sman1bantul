@@ -249,7 +249,7 @@ class FormController
         $submissions = $this->getSubmissions($formId);
 
         // File upload constants
-        $allowedFileTypes = ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'];
+        $allowedFileTypes = ['jpg', 'jpeg', 'png', 'webp', 'pdf', 'doc', 'docx'];
         $maxFileSize = 5 * 1024 * 1024; // 5MB
 
         foreach ($fields as $field) {
@@ -364,7 +364,8 @@ class FormController
                 $type = $field['type'] ?? 'text';
 
                 if ($type === 'file') {
-                    $data[$name] = $this->handleFileUpload($name);
+                    $upload = $this->handleFileUpload($name, $formId, $regId);
+                    $data[$name] = $upload['success'] ? $upload['path'] : null;
                 } elseif ($type === 'tel') {
                     // Normalize phone numbers
                     $data[$name] = Validator::normalizePhone($_POST[$name] ?? '');
@@ -391,21 +392,73 @@ class FormController
         exit;
     }
 
-    private function handleFileUpload($fieldName)
+    private function handleFileUpload($fieldName, $formId, $regId)
     {
-        if (empty($_FILES[$fieldName]['name']))
-            return null;
-        $targetDir = UPLOAD_PATH;
-        if (!is_dir($targetDir))
-            mkdir($targetDir, 0755, true);
-        $fileName = basename($_FILES[$fieldName]['name']);
-        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $newFileName = uniqid() . '.' . $ext;
-        $targetFile = $targetDir . $newFileName;
-        if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $targetFile)) {
-            return url('public/assets/uploads/' . $newFileName);
+        if (empty($_FILES[$fieldName]['name'])) {
+            return ['success' => false, 'path' => null, 'error' => 'No file selected'];
         }
-        return null;
+
+        $uploadError = $_FILES[$fieldName]['error'] ?? UPLOAD_ERR_OK;
+        if ($uploadError !== UPLOAD_ERR_OK) {
+            $errorMessages = [
+                UPLOAD_ERR_INI_SIZE => 'File is too large. Server limit is ' . ini_get('upload_max_filesize') . '. Please reduce file size or contact admin.',
+                UPLOAD_ERR_FORM_SIZE => 'File exceeds form size limit',
+                UPLOAD_ERR_PARTIAL => 'File was only partially uploaded',
+                UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+                UPLOAD_ERR_NO_TMP_DIR => 'Server misconfiguration: missing temp folder',
+                UPLOAD_ERR_CANT_WRITE => 'Server error: failed to write file',
+                UPLOAD_ERR_EXTENSION => 'Upload blocked by server extension'
+            ];
+            $errorMessage = $errorMessages[$uploadError] ?? 'Unknown upload error';
+            error_log("handleFileUpload: PHP error $uploadError - $errorMessage");
+            return ['success' => false, 'path' => null, 'error' => $errorMessage];
+        }
+
+        if (empty($_FILES[$fieldName]['tmp_name'])) {
+            return ['success' => false, 'path' => null, 'error' => 'Temporary file not found'];
+        }
+
+        if (!file_exists($_FILES[$fieldName]['tmp_name'])) {
+            error_log("handleFileUpload: tmp file missing for $fieldName");
+            return ['success' => false, 'path' => null, 'error' => 'Upload failed. File may be too large (total limit ' . ini_get('post_max_size') . ').'];
+        }
+
+        if ($_FILES[$fieldName]['size'] > 5 * 1024 * 1024) {
+            return ['success' => false, 'path' => null, 'error' => 'File is too large. Maximum size is 5MB.'];
+        }
+
+        try {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mimeType = $finfo->file($_FILES[$fieldName]['tmp_name']);
+        } catch (Throwable $e) {
+            error_log("finfo error: " . $e->getMessage());
+            return ['success' => false, 'path' => null, 'error' => 'Could not verify file type'];
+        }
+
+        $allowedMimes = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'application/pdf' => 'pdf'
+        ];
+
+        if (!isset($allowedMimes[$mimeType])) {
+            return ['success' => false, 'path' => null, 'error' => 'Invalid file type. Please upload JPG, PNG, WebP, or PDF.'];
+        }
+
+        $ext = $allowedMimes[$mimeType];
+        $targetDir = BASE_PATH . '/data/submissions/uploads/' . $formId . '/' . $regId;
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0755, true);
+        }
+        $newFileName = $fieldName . '_' . time() . '.' . $ext;
+        $targetFile = $targetDir . '/' . $newFileName;
+
+        if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $targetFile)) {
+            return ['success' => true, 'path' => $targetFile, 'error' => null];
+        }
+
+        return ['success' => false, 'path' => null, 'error' => 'Failed to save file'];
     }
 
     private function isQuotaFull($form)

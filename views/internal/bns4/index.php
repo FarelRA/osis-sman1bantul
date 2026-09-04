@@ -1,14 +1,9 @@
 <?php
-// Start session for admin authentication
-session_start();
+require_once __DIR__ . '/../../../src/Config.php';
 
-// Admin credentials (change these for production)
-define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'admin123'); // Change this!
-
-// Helper function to check if user is authenticated
+// Use site admin auth instead of hardcoded credentials
 function isAdminAuthenticated() {
-    return isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true;
+    return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
 }
 
 // Handle Admin Login
@@ -16,13 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api']
     $input = json_decode(file_get_contents('php://input'), true);
     
     if ($input && 
-        isset($input['username']) && $input['username'] === ADMIN_USERNAME &&
-        isset($input['password']) && $input['password'] === ADMIN_PASSWORD) {
+        isset($input['username']) && isset($input['password'])) {
         
-        $_SESSION['admin_authenticated'] = true;
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
-        exit;
+        $admin = json_decode(file_get_contents(BASE_PATH . '/data/admin.json'), true);
+        if (isset($admin['username']) && $input['username'] === $admin['username'] && password_verify($input['password'], $admin['password'])) {
+            Security::regenerateSession();
+            $_SESSION['admin_logged_in'] = true;
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true]);
+            exit;
+        }
     }
     
     header('Content-Type: application/json');
@@ -33,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api']
 
 // Handle Admin Logout
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api'] === 'admin-logout') {
+    $_SESSION = [];
     session_destroy();
+    setcookie(session_name(), '', time() - 3600, '/');
     header('Content-Type: application/json');
     echo json_encode(['success' => true]);
     exit;
@@ -2323,7 +2323,7 @@ if (isset($_GET['admin'])) {
        x-transition:enter-end="opacity-100 translate-y-0">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="?asset=logo.png" alt="Bro & Sis" class="h-9 w-auto" />
+        <img src="?asset=logo.webp" alt="Bro & Sis" class="h-9 w-auto" />
         <span class="font-display tracking-wide leading-none" style="color: #D4AF37;">
           Bro <span class="italic">&amp;</span> Sis
         </span>
@@ -2530,7 +2530,7 @@ if (isset($_GET['admin'])) {
         <div class="relative reveal">
           <div class="tilt-card rounded-lg overflow-hidden shadow-2xl border border-gold/20"
                @mousemove="tiltCard($event)" @mouseleave="resetTilt($event)">
-            <img src="?asset=poster.jpg" alt="Bro & Sis 4 Event Poster"
+            <img src="?asset=poster.webp" alt="Bro & Sis 4 Event Poster"
                  class="w-full h-auto" loading="lazy" />
             <!-- Shine overlay on hover -->
             <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/5 to-white/0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>

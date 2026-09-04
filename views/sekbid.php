@@ -7,6 +7,8 @@ $sekbid_data = json_decode(file_get_contents(BASE_PATH . '/data/sekbid.json'), t
 $programs = json_decode(file_get_contents(BASE_PATH . '/data/program-kerja.json'), true);
 
 // data enrichment
+$leadership['programs'] = $programs['inti'] ?? [];
+
 foreach ($sekbid_data as $id => &$data) {
     if (isset($programs[$id])) {
         $data['programs'] = $programs[$id];
@@ -25,7 +27,7 @@ $nav_items[] = [
     'id' => 'leadership',
     'label' => 'Core Leadership',
     'short' => 'Core',
-    'image' => 'sekbid/inti/ketua/ketua_team.jpg'
+    'image' => $leadership['team_photo']
 ];
 
 // Add Sekbids
@@ -45,10 +47,20 @@ ob_start();
 <div x-data="{ 
     activeTab: 'leadership',
     sidebarOpen: false,
+    lastScrollY: 0,
+    showMobileNav: true,
+    init() {
+        this.lastScrollY = window.pageYOffset;
+    },
+    handleScroll() {
+        let currentY = window.pageYOffset;
+        this.showMobileNav = currentY < this.lastScrollY || currentY < 10;
+        this.lastScrollY = currentY;
+    },
     scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-}" class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col md:flex-row">
+}" @scroll.window="handleScroll()" class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col md:flex-row">
 
     <!-- Desktop Sidebar (Floating) -->
     <aside
@@ -71,7 +83,7 @@ ob_start();
                     <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 shadow-sm ring-2 ring-transparent group-hover:ring-gray-200 dark:group-hover:ring-gray-600 transition-all"
                         :class="activeTab === '<?= $item['id'] ?>' ? 'ring-[#2C3E7C] dark:ring-blue-400' : ''">
                         <img src="<?= asset('assets/images/' . $item['image']) ?>" class="w-full h-full object-cover"
-                            onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'" alt="Thumbnail">
+                            onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'" alt="Thumbnail">
                     </div>
 
                     <div class="min-w-0 flex-1 py-1">
@@ -94,7 +106,10 @@ ob_start();
     </aside>
 
     <!-- Mobile Bottom Title Bar -->
-    <div
+    <div x-show="showMobileNav" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
         class="md:hidden fixed bottom-6 left-4 right-4 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-white/20 dark:border-gray-700/50 rounded-2xl px-5 py-4 shadow-lg flex items-center justify-between">
         <div class="flex items-center gap-3 overflow-hidden">
             <div class="w-1.5 h-6 bg-[#2C3E7C] dark:bg-blue-400 rounded-full flex-shrink-0"></div>
@@ -104,7 +119,10 @@ ob_start();
     </div>
 
     <!-- Mobile Nav Bar (Floating & Square) -->
-    <div
+    <div x-show="showMobileNav" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
         class="md:hidden fixed bottom-24 left-4 right-4 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/20 dark:border-gray-700/50 rounded-3xl shadow-2xl p-3 overflow-x-auto no-scrollbar flex items-center gap-3 snap-x">
         <?php foreach ($nav_items as $item): ?>
             <button @click="activeTab = '<?= $item['id'] ?>'; scrollToTop()"
@@ -112,7 +130,7 @@ ob_start();
                 :class="activeTab === '<?= $item['id'] ?>' ? 'ring-2 ring-offset-2 ring-[#2C3E7C] scale-105 shadow-lg' : 'opacity-70 hover:opacity-100 hover:scale-105'">
 
                 <img src="<?= asset('assets/images/' . $item['image']) ?>" class="w-full h-full object-cover"
-                    onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'" alt="Thumb">
+                    onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'" alt="Thumb">
 
                 <div x-show="activeTab === '<?= $item['id'] ?>'"
                     class="absolute inset-0 bg-[#2C3E7C]/20 pointer-events-none"></div>
@@ -140,22 +158,22 @@ ob_start();
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <?php foreach ($leadership as $leader): ?>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    <?php foreach ($leadership['members'] as $leader): ?>
                         <div
                             class="group bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                             <div class="aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-gray-100 dark:bg-gray-700">
                                 <img src="<?= asset('assets/images/' . $leader['photo']) ?>"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'"
-                                    alt="<?= htmlspecialchars($leader['name']) ?>">
+                                    onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'"
+                                    alt="<?= h($leader['name']) ?>">
                             </div>
                             <div class="text-center">
                                 <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-1 leading-tight">
-                                    <?= htmlspecialchars($leader['name']) ?>
+                                    <?= h($leader['name']) ?>
                                 </h3>
                                 <p class="text-[#2C3E7C] dark:text-blue-400 font-medium text-sm mb-3">
-                                    <?= htmlspecialchars($leader['position']) ?>
+                                    <?= h($leader['position']) ?>
                                 </p>
                                 <?php if (!empty($leader['instagram'])): ?>
                                     <a href="https://instagram.com/<?= str_replace('@', '', $leader['instagram']) ?>"
@@ -165,12 +183,43 @@ ob_start();
                                             <path
                                                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                                         </svg>
-                                        @<?= htmlspecialchars($leader['instagram'] ?? 'osis.sman1bantul') ?>
+                                        @<?= h($leader['instagram'] ?? 'sabaevent') ?>
                                     </a>
                                 <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
+                </div>
+
+                <!-- Work Programs Section -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                        <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
+                        Work Programs
+                    </h3>
+
+                    <div class="space-y-4">
+                        <?php if (!empty($leadership['programs'])): ?>
+                            <div
+                                class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 w-24 h-24 bg-purple-50 dark:bg-purple-900/20 rounded-full -translate-y-12 translate-x-12 opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                                <ul class="space-y-2">
+                                    <?php foreach ($leadership['programs'] as $prog): ?>
+                                        <li class="pl-4 relative text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                            <span class="absolute left-0 top-2 w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                                            <?= htmlspecialchars($prog) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php else: ?>
+                            <div class="p-6 text-center text-gray-500 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                                No work programs listed yet.
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,15 +254,15 @@ ob_start();
                                 class="w-full lg:w-1/2 aspect-video bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg transform rotate-1 hover:rotate-0 transition-transform duration-500">
                                 <img src="<?= asset('assets/images/' . $data['team_photo']) ?>"
                                     class="w-full h-full object-cover"
-                                    onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'"
+                                    onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'"
                                     alt="Team Sekbid <?= $id ?>">
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid lg:grid-cols-3 gap-8">
-                        <!-- Members Column -->
-                        <div class="lg:col-span-2 space-y-6">
+                    <div class="space-y-8">
+                        <!-- Members Section -->
+                        <div class="space-y-6">
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                                 <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
                                 Team Members
@@ -224,7 +273,7 @@ ob_start();
                                         class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-4 hover:shadow-md transition-shadow">
                                         <img src="<?= asset('assets/images/' . $member['photo']) ?>"
                                             class="w-16 h-16 rounded-full object-cover ring-2 ring-gray-100 dark:ring-gray-700"
-                                            onerror="this.src='<?= asset('assets/images/placeholder.jpg') ?>'"
+                                            onerror="this.src='<?= asset('assets/images/placeholder.webp') ?>'"
                                             alt="<?= htmlspecialchars($member['name']) ?>">
                                         <div>
                                             <h4 class="font-bold text-gray-900 dark:text-white text-base">
@@ -239,7 +288,7 @@ ob_start();
                             </div>
                         </div>
 
-                        <!-- Programs Column -->
+                        <!-- Programs Section -->
                         <div class="space-y-6">
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                                 <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
