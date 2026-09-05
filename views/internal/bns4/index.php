@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['api']) && $_GET['api'] 
         exit;
     }
     
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     if (!file_exists($dataFile)) {
         if (!is_dir(dirname($dataFile))) mkdir(dirname($dataFile), 0777, true);
         file_put_contents($dataFile, json_encode([]));
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['api']) && $_GET['api
         exit;
     }
     
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     $rsvps = json_decode(file_get_contents($dataFile), true) ?: [];
     
     $rsvps = array_filter($rsvps, function($rsvp) use ($input) {
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api']
         exit;
     }
     
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     if (!file_exists($dataFile)) {
         if (!is_dir(dirname($dataFile))) mkdir(dirname($dataFile), 0777, true);
         file_put_contents($dataFile, json_encode([]));
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api']
         exit;
     }
     
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     $rsvps = json_decode(file_get_contents($dataFile), true) ?: [];
     
     $found = false;
@@ -231,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['api']) && $_GET['api']
         exit;
     }
     
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     $rsvps = json_decode(file_get_contents($dataFile), true) ?: [];
     
     $found = false;
@@ -276,7 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['asset'])) {
 
 // Handle API POST Request (Submit RSVP)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     if (!file_exists($dataFile)) {
         if (!is_dir(dirname($dataFile))) mkdir(dirname($dataFile), 0777, true);
         file_put_contents($dataFile, json_encode([]));
@@ -323,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Handle API GET Request (Fetch Stats)
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['api']) && $_GET['api'] === 'stats') {
-    $dataFile = __DIR__ . '/data/rsvps.json';
+    $dataFile = BASE_PATH . '/data/bns4/rsvps.json';
     if (!file_exists($dataFile)) {
         if (!is_dir(dirname($dataFile))) mkdir(dirname($dataFile), 0777, true);
         file_put_contents($dataFile, json_encode([]));

@@ -1,9 +1,29 @@
+# dependencies
 node_modules/
 vendor/
+
+# env & secrets
 .env
-.DS_Store
-*.log
-public/assets/uploads/
-data/registrations/
+.env.*
+!.env.example
+
+# runtime data (lives on server bind mount: /home/podman/services/data/osis/data)
 data/
 sessions/
+views/internal/*/data/
+!data/.htaccess
+
+# uploads & user content
+public/assets/uploads/
+*.bak
+
+# logs & OS junk
+*.log
+.DS_Store
+Thumbs.db
+
+# editor
+*.swp
+*~
+.idea/
+.vscode/

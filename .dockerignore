@@ -1,4 +1,12 @@
 .git
 .github
 node_modules
+vendor
 .env*
+data
+sessions
+views/internal/*/data
+public/assets/uploads
+*.bak
+*.log
+*.md
