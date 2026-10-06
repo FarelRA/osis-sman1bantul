@@ -19,14 +19,7 @@ ob_start();
                 <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">Visitors Today</p>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">
                     <?php
-                    $analytics = getAnalytics();
-                    $today = date('Y-m-d');
-                    $count = 0;
-                    foreach ($analytics as $visit) {
-                        if (substr($visit['timestamp'], 0, 10) === $today)
-                            $count++;
-                    }
-                    echo $count;
+                    echo function_exists('countVisitsToday') ? countVisitsToday() : count(getAnalytics());
                     ?>
                 </p>
             </div>
